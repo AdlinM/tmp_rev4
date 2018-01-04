@@ -1,0 +1,97 @@
+/* slide animation */
+.slide-enter-to, .slide-leave-to
+  animation-duration: 1s
+  animation-fill-mode: both
+
+@keyframes slide-enter-to
+  from
+    transform: translate3d(-100%, 0, 0)
+    visibility: visible
+  to
+    transform: translate3d(0, 0, 0)
+
+.slide-enter-to
+  animation-name: slide-enter-to
+
+@keyframes slide-leave-active
+  from
+    transform: translate3d(0, 0, 0)
+  to
+    visibility: hidden
+    transform: translate3d(100%, 0, 0)
+
+.slide-leave-active
+  animation-name: slide-leave-active
+
+/* fade animation */
+.fade-enter, .fade-leave-to
+  opacity: 0
+.fade-enter-active
+  transition: all .3s ease
+.fade-leave-active
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+
+
+
+/* fade animate.css */
+.animated
+  animation-duration: 1s
+  animation-fill-mode: both
+
+
+@keyframes zoomIn
+  from
+    opacity: 0
+    transform: scale3d(.3, .3, .3)
+  50%
+    opacity: 1
+    
+.zoomIn
+  animation-name: zoomIn
+
+
+
+@keyframes jackInTheBox
+  from
+    opacity: 0
+    transform: scale(0.1) rotate(30deg)
+    transform-origin: center bottom
+  50%
+    transform: rotate(-10deg)
+  70%
+    transform: rotate(3deg)
+  to
+    opacity: 1
+    transform: scale(1)
+.jackInTheBox
+  animation-name: jackInTheBox
+
+
+[v-cloak]
+  display: none !important
+
+
+.aas
+  display: none
+
+
+
+@keyframes slideInDown
+  from
+    transform: translate3d(0, -100%, 0)
+    visibility: visible
+  to
+    transform: translate3d(0, 0, 0)
+
+.slideInDown
+  animation-name: slideInDown
+
+@keyframes slideOutUp
+  from
+    transform: translate3d(0, 0, 0)
+  to
+    visibility: hidden
+    transform: translate3d(0, -100%, 0)
+
+.slideOutUp
+  animation-name: slideOutUp

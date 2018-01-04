@@ -1,0 +1,261 @@
+body
+  padding: 0
+  margin: 0
+  color: #454545
+  font-size: 13px
+  line-height: 20px
+  font-weight: 400
+  background: #EDEFF0
+  input, textarea, select
+    &.form-control, form-control:focus
+      -webkit-box-shadow: none !important
+      box-shadow: none !important
+  .btn
+    &.btn-action
+      font-size: 19px
+      padding: 0 5px
+    &.btn-transparent
+      background: transparent
+    &.show-button
+      color: #6ea038
+    &.delete-button
+      color: #F39C12
+  #nav-blocker
+    display: none
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 250px
+    z-index: 1000
+    &.toggled
+      display: block
+  .header
+    top: 0
+    right: 0
+    left: 0
+    max-height: 100px
+    z-index: 1030
+    .navbar
+      height: 50px
+      margin-bottom: 0
+      left: 0
+      right: 0
+      background: #272c40
+      z-index: 1000
+      border-width: 0 0 1px
+      min-height: 50px
+      .sidebar-toggle
+        cursor: pointer
+        float: left
+        padding: 9px 5px
+        margin-top: 8px
+        margin-right: 0
+        margin-bottom: 8px
+        margin-left: 5px
+        background-color: transparent
+        background-image: none
+        border: 1px solid transparent
+        -webkit-border-radius: 0 !important
+        -moz-border-radius: 0 !important
+        border-radius: 0 !important
+        .icon-bar
+          display: block
+          width: 22px
+          height: 2px
+          -webkit-border-radius: 0
+          -moz-border-radius: 0
+          border-radius: 0
+          background: #fff
+          + .icon-bar
+            margin-top: 4px
+      .navbar-right
+        margin-right: 0
+        cursor: pointer
+        .nav
+          margin-right: 10px
+          @media (max-width: 767px)
+            margin-top: 6px
+            margin-right: 0px
+            float: right
+          a
+            line-height: 20px
+            position: relative
+            display: block
+            text-align: left
+            font-size: 14px
+            color: #fff !important
+            font-weight: 600
+            &:focus
+              background: #2D3349
+            &:hover
+              background: #2D3349
+            @media (min-width: 768px)
+              padding-top: 15px
+              padding-bottom: 15px
+#wrapper
+  -webkit-transition: all 0.5s ease
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+  transition: all 0.5s ease
+  &.toggled
+    padding-left: 250px
+    -webkit-transition: all 0.5s ease
+    -moz-transition: all 0.5s ease
+    -o-transition: all 0.5s ease
+    transition: all 0.5s ease
+#page-content-wrapper
+  width: 100%
+.hasLogin
+  .container-fluid
+    margin: 15px 0
+    >.block
+      position: relative
+      float: left
+      width: 100%
+      padding: 10px 20px 20px
+      margin-bottom: 15px
+      background: #FFF
+      border: 1px solid #DBE0E4
+      -webkit-border-radius: 0
+      -moz-border-radius: 0
+      border-radius: 0
+.breadcrumb
+  background: #FFF
+  padding: 5px 0
+  border-bottom: 1px solid #95a5a6
+  border-color: rgba(149, 165, 166, 0.23)
+.has-error
+  .form-control, .form-control:focus
+    border-color: red
+  p.error
+    color: red
+.status-text
+  font-size: 10px
+  padding: 1px 2px
+  border-radius: 3px
+  display: inline-block
+  color: #fff
+  text-transform: uppercase
+  font-weight: bold
+  &.open 
+    background-color: #0a83d2
+  &.closed
+    background-color: #747474
+  &.in-progress
+    background-color: #f9a61a
+  &.resolved
+    background-color: #059829
+#list-table-form
+  margin-bottom: 20px
+#list-table
+  table
+    tr
+      th
+        &:nth-child(1)
+          width: 7%
+        &:nth-child(2)
+          width: 10%
+        &:nth-child(3)
+          width: 27%
+        &:nth-child(4)
+          width: 15%
+        &:nth-child(5)
+          width: 8%
+        &:nth-child(6)
+          width: 10%
+        &:nth-child(7)
+          width: 14%
+        &:nth-child(8)
+          width: 8%
+    tr
+      td
+        vertical-align: middle
+        &:nth-child(6)
+          text-align: center
+  .VuePagination
+    .pagination
+      float: right
+      margin-top: 0
+    .VuePagination__count
+      float: left
+      width: 30%
+.vue-lb-info
+  height: auto !important
+
+.material
+  .group
+    position: relative 
+    margin-bottom: 45px
+  label
+    color: #999 
+    font-size: 18px
+    font-weight: normal
+    position: absolute
+    pointer-events: none
+    left: 5px
+    top: 10px
+    transition: 0.2s ease all 
+    -moz-transition: 0.2s ease all 
+    -webkit-transition: 0.2s ease all
+
+  input
+    font-size: 18px
+    padding: 10px 10px 10px 5px
+    display: block
+    width: 300px
+    border: none
+    border-bottom: 1px solid #757575
+    &:focus
+      outline: none
+    &:focus ~ label
+      top: -20px
+      font-size: 14px
+      color: #5264AE
+    &:valid ~ label
+      top: -20px
+      font-size: 14px
+      color: #5264AE
+    &:focus ~ .bar:before
+      width: 50%
+    &:focus ~ .bar:after
+      width: 50%
+    &:focus ~ .highlight
+      -webkit-animation: inputHighlighter 0.3s ease
+      -moz-animation: inputHighlighter 0.3s ease
+       animation: inputHighlighter 0.3s ease
+.highlight
+  position: absolute
+  height: 60% 
+  width: 100px 
+  top: 25% 
+  left: 0
+  pointer-events: none
+  opacity: 0.5
+
+@-webkit-keyframes inputHighlighter
+  from
+    background: #5264AE
+  to
+    width: 0
+    background: transparent
+@-moz-keyframes inputHighlight
+  from
+    background: #5264AE
+  to
+    width: 0
+    background: transparent
+@keyframes inputHighlighter
+  from
+    background: #5264AE
+  to
+    width: 0
+    background: transparent
+
+
+.datepicker
+  .input
+    @extend .form-control
+    @extend .input-sm
+    border-radius: 0 !important
+    background-color: #fff !important
