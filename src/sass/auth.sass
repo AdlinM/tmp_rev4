@@ -1,3 +1,12 @@
+@mixin background($imgpath,$repeat: no-repeat,$size: cover)
+  background:
+    image: url($imgpath)
+    repeat: $repeat
+    size: $size
+  
+body
+  // @include background('/my/img/path.png')
+  background: (#2780E3 !important)
 
 a
   color: #2C3E50
@@ -5,7 +14,7 @@ form
   margin-top: 50px
   width: 360px
   margin: 50px auto
-  background: #FFF
+  color: white
   -webkit-border-radius: 0
   -moz-border-radius: 0
   border-radius: 0
@@ -32,7 +41,9 @@ form
       margin-bottom: 5px
     .subtitle
       font-size: 14px
-      color: #7F8FA4
+      color: #white
   .app-login-box-container
     width: 100%
     padding: 0 30px 30px
+  a
+    color: white !important

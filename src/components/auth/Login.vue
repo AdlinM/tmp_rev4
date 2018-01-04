@@ -1,19 +1,13 @@
 <template>
-    <form class="app-login-box animated zoomIn" method="POST" v-on:submit.prevent="onSubmit">
-        <div class="app-login-logo">
-          <img src="../../assets/images/logo_150x150.png" class="img-logo img-responsive center-block" />
-        </div>
-        <div class="app-login-box-title">
-          <div class="title">Mobile Operation</div>
-          <div class="subtitle">Sign in to your account</div>
+    <form class="app-login-box animated fadeIn" method="POST" v-on:submit.prevent="onSubmit">
+        <div class="blue-app-login-box">
+          <div class="app-login-box-title">
+            <div class="subtitle">Sign in to your account</div>
+          </div>
         </div>
         <div class="app-login-box-container">
           <div v-if="errorMsg !== null" class="alert alert-danger">
               {{ errorMsg }}
-          </div>
-          <div class="form-group" v-bind:class="user.company.error !== null ? 'has-error':''">
-              <input type="text" class="form-control" id="company" v-model="user.company.value" placeholder="Company" autofocus>
-              <p v-if="user.company.error !== null" class="error">{{user.company.error}}</p>
           </div>
           <div class="form-group" v-bind:class="user.username.error !== null ? 'has-error':''">
               <input type="text" class="form-control" id="username" v-model="user.username.value" placeholder="Username" >
@@ -37,12 +31,6 @@ export default {
       errorMsg: null,
       isLoading: false,
       user: {
-        company: {
-          required: false,
-          rule: 'any',
-          value: null,
-          error: null
-        },
         username: {
           required: true,
           rule: 'any',
@@ -83,8 +71,7 @@ export default {
       }
       this.$store.dispatch('login', {
         username: this.user.username.value,
-        password: this.user.password.value,
-        account: this.user.company.value
+        password: this.user.password.value
       }).then((response) => {
         return this.$router.push('/')
       }).catch(error => {

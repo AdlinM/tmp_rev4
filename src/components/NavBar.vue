@@ -1,8 +1,7 @@
 <template>
   <div id="sidebar-wrapper" v-bind:class="{ toggled: this.isToggled }">
       <ul class="sidebar-nav">
-          <li class="sidebar-brand">Mobile Operation</li>
-          <li class="title">Menus</li>
+          <li class="sidebar-brand">Polling</li>
           <li>
             <router-link to="/" v-on:click.native="closeOpenUserMenu">
             <span class="router-icon"><img src="../assets/images/icons/dashboard.png"/></span> Dashboard</router-link>
@@ -54,7 +53,7 @@ export default {
   height: 100%
   margin-left: -250px
   overflow-y: auto
-  background: #2D3349
+  background: #217DBB
   -webkit-transition: all 0.5s ease
   -moz-transition: all 0.5s ease
   -o-transition: all 0.5s ease
@@ -68,23 +67,20 @@ export default {
     margin: 0
     padding: 0
     list-style: none
-    background: #2D3349
     li
       text-indent: 20px
       line-height: 40px
-      border-bottom: 1px solid #292f43
       text-transform: uppercase
       font-weight: 600
       &.sidebar-brand
         cursor: default
-        background: #272c40
+        background: #2780e3
         text-shadow: 1px 2px rgba(0,0,0,.2)
-        border-bottom: 1px solid #292f43
         font-size: 24px
         text-align: left
         font-size: 18px
         color: #fff !important
-        line-height: 60px
+        line-height: 50px
       &.title
         font-size: 11px
         color: #C5D1CD

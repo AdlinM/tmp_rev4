@@ -22,12 +22,22 @@ export default new Vuex.Store({
     login (state, tokens) {
       state.accessToken = tokens.access_token
       state.refreshToken = tokens.refresh_token
+      console.log(state.accountData)
+      if (!tokens.account_data !== null) {
+        state.accountData = tokens.account_data
+      }
     },
     logout (state) {
       state.toggled = false
       state.accessToken = null
       state.refreshToken = null
       state.error = null
+    },
+    beginPreload (state) {
+      state.isPreloading = true
+    },
+    endPreload (state) {
+      state.isPreloading = false
     }
   },
   actions: {
@@ -45,14 +55,30 @@ export default new Vuex.Store({
       return axios.post(window.AppConfig.baseApiUrl + 'oauth', {
         username: credentials.username,
         password: credentials.password,
-        company: credentials.company,
         grant_type: 'password',
         client_id: window.AppConfig.clientId,
         client_secret: window.AppConfig.clientSecret
       })
       .then(response => {
-        return dispatch('saveTokens', {tokens: response.data, isLocalLogin: false})
-        // return response
+        const a = response.data
+        return dispatch('getAccountData', a.access_token).then((response) => {
+          return dispatch('saveTokens', {tokens: a, accountData: JSON.stringify(response), isLocalLogin: false})
+        }).catch(error => {
+          return Promise.reject(error)
+        })
+      })
+      .catch(error => {
+        return Promise.reject(error)
+      })
+    },
+    getAccountData ({
+      state,
+      commit,
+      dispatch
+    }, accessToken) {
+      return axios.get(window.AppConfig.baseApiUrl + 'api/me', {headers: { Authorization: 'Bearer ' + accessToken }})
+      .then(response => {
+        return response.data
       })
       .catch(error => {
         return Promise.reject(error)
@@ -109,16 +135,21 @@ export default new Vuex.Store({
     }, params) {
       let a = params.tokens.access_token
       let b = params.tokens.refresh_token
+      const c = params.accountData === null ? state.accountData : params.accountData
       if (!params.isLocalLogin) {
         localStorage.setItem('access_token', a)
         localStorage.setItem('refresh_token', b)
+        localStorage.setItem('account_data', c)
       }
       commit('login', {
         access_token: a,
-        refresh_token: b
+        refresh_token: b,
+        account_data: c
       })
       axios.interceptors.request.use(config => {
-        config.headers.Authorization = 'Bearer ' + state.accessToken
+        if (state.accessToken !== null) {
+          config.headers.Authorization = 'Bearer ' + state.accessToken
+        }
         return config
       })
       return axios.interceptors.response.use(undefined, function (err) {
@@ -129,7 +160,8 @@ export default new Vuex.Store({
               localStorage.setItem('refresh_token', response.refresh_token)
               commit('login', {
                 access_token: response.access_token,
-                refresh_token: response.refresh_token
+                refresh_token: response.refresh_token,
+                account_data: state.accountData
               })
               err.config.__isRetryRequest = true
               // err.config.headers.Authorization = 'Bearer ' + response.access_token
@@ -146,30 +178,9 @@ export default new Vuex.Store({
           return Promise.reject(err)
         }
       })
-      /* return axios.interceptors.response.use(undefined, function (err) {
-        const originalRequest = err.config
-        if (err.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true
-          return dispatch('refreshToken').then(response => {
-            localStorage.setItem('access_token', response.access_token)
-            localStorage.setItem('refresh_token', response.refresh_token)
-            commit('login', {
-              access_token: response.access_token,
-              refresh_token: response.refresh_token
-            })
-            return axios(originalRequest)
-          }).catch(error => {
-            console.log(error)
-            // dispatch('logout')
-            // return router.push('/login')
-          })
-        } else if (err.response.status === 400) {
-          dispatch('logout')
-          return router.push('/login')
-        }
-        return Promise.reject(err)
-      }) */
-    }
+    },
+    beginPreload: ({commit}) => commit('beginPreload'),
+    endPreload: ({commit}) => commit('endPreload')
   },
   getters: {
     getToggled: state => {
@@ -186,6 +197,10 @@ export default new Vuex.Store({
         access_token: state.accessToken,
         refresh_token: state.refreshToken
       }
-    }
+    },
+    accountData: state => {
+      return JSON.parse(state.accountData)
+    },
+    isPreloading: state => state.isPreloading
   }
 })
