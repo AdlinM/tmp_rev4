@@ -6,3 +6,30 @@ window.AppConfig = {
   googleApiKey: process.env.NODE_ENV === 'development' ? 'AIzaSyAdJbCAEwxfEDtOHkwkqMffMlQr_586erY' : 'AIzaSyAdJbCAEwxfEDtOHkwkqMffMlQr_586erY',
   IntervalRefreshData: 60000
 }
+
+window.statusText = {
+  'Open': {
+    'color': '#0a83d2',
+    'class': 'open'
+  },
+  'Closed': {
+    'color': '#747474',
+    'class': 'closed'
+  },
+  'In Progress': {
+    'color': '#f9a61a',
+    'class': 'in-progress'
+  },
+  'Assigned': {
+    'color': '#3e97b7',
+    'class': 'assigned'
+  },
+  'Arrived': {
+    'color': '#6E9F39',
+    'class': 'arrived'
+  },
+  'Resolved': {
+    'color': '#059829',
+    'class': 'resolved'
+  }
+}
