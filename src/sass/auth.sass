@@ -1,13 +1,3 @@
-@mixin background($imgpath,$repeat: no-repeat,$size: cover)
-  background:
-    image: url($imgpath)
-    repeat: $repeat
-    size: $size
-  
-body
-  // @include background('/my/img/path.png')
-  background: (#2780E3 !important)
-
 a
   color: #2C3E50
 form
@@ -19,6 +9,8 @@ form
   -moz-border-radius: 0
   border-radius: 0
   zoom: 1
+  background: white
+  box-shadow: (0px 0px 10px 1px #353131)
   @media (max-width: 767px)
     width: 100%
   &:after, &:before
@@ -47,3 +39,6 @@ form
     padding: 0 30px 30px
   a
     color: white !important
+
+  img
+    height: 250px

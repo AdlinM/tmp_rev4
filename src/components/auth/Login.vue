@@ -1,8 +1,8 @@
 <template>
-    <form class="app-login-box animated fadeIn" method="POST" v-on:submit.prevent="onSubmit">
+    <form class="app-login-box animated fadeIn" method="POST" v-on:submit.prevent="onSubmit" autocomplete="false">
         <div class="blue-app-login-box">
-          <div class="app-login-box-title">
-            <div class="subtitle">Sign in to your account</div>
+          <div class="app-login-logo">
+            <img src="../../assets/images/logo.png" class="img-logo img-responsive center-block" />
           </div>
         </div>
         <div class="app-login-box-container">
