@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-offset-2 col-sm-5">
           <h3 class="text-center">High Chart</h3>
-          <vue-highcharts :options="pieOptions"></vue-highcharts>
+          <vue-highcharts v-if="pieOptions.series.data !== []" :options="pieOptions"></vue-highcharts>
         </div>
       </div>
     </div>
@@ -21,50 +21,9 @@
 <script>
 import Pie from '@/components/charts/Pie'
 import VueHighcharts from 'vue2-highcharts'
-import axios from 'axios'
+import * as initData from '@/components/charts/HighchartInit'
 
-export let initial = {
-  chart: {
-    type: 'spline'
-  },
-  title: {
-    text: 'Monthly Average Temperature'
-  },
-  subtitle: {
-    text: 'Source: WorldClimate.com'
-  },
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  },
-  yAxis: {
-    title: {
-      text: 'Temperature'
-    },
-    labels: {
-      formatter: function () {
-        return this.value + '°'
-      }
-    }
-  },
-  tooltip: {
-    crosshairs: true,
-    shared: true
-  },
-  credits: {
-    enabled: false
-  },
-  plotOptions: {
-    spline: {
-      marker: {
-        radius: 4,
-        lineColor: '#666666',
-        lineWidth: 1
-      }
-    }
-  },
-  series: []
-}
+import axios from 'axios'
 
 export default {
   components: {
@@ -78,7 +37,6 @@ export default {
       ticketstats: {
         month: null
       },
-      options: this.initial,
       pieOptions: null
     }
   },
@@ -87,8 +45,11 @@ export default {
       axios.get(window.AppConfig.apiUrl + 'ticketstats.' + period)
       .then(response => {
         if (Object.keys(response.data).length) {
-          console.log('set data chart')
-          let stats = {labels: Object.keys(response.data), datas: Object.values(response.data), colors: []}
+          let stats = {
+            labels: Object.keys(response.data),
+            datas: Object.values(response.data),
+            colors: []
+          }
           for (let i = 0; i < Object.keys(response.data).length; i++) {
             stats.colors.push(window.statusText[Object.keys(response.data)[i]].color)
           }
@@ -103,34 +64,17 @@ export default {
     getHighChartData (period) {
       axios.get(window.AppConfig.apiUrl + 'ticketstats.' + period)
       .then(response => {
-        let dataChart = []
-        Object.keys(response.data).forEach(function (key) {
-          dataChart.push([key, parseInt(response.data[key])])
-        })
-        this.pieOptions = {
-          chart: {
-            type: 'pie',
-            options3d: {
-              enabled: true,
-              alpha: 45
-            }
-          },
-          title: {
-            text: 'Title test'
-          },
-          subtitle: {
-            text: 'subtitle text'
-          },
-          plotOptions: {
-            pie: {
-              innerSize: 100,
-              depth: 45
-            }
-          },
-          series: [{
-            name: 'test amount',
+        if (Object.keys(response.data).length) {
+          let dataChart = []
+          Object.keys(response.data).forEach(function (key) {
+            dataChart.push([key, parseInt(response.data[key])])
+          })
+          let opt = initData.pieOptions
+          opt.series = [{
+            name: 'data',
             data: dataChart
           }]
+          this.pieOptions = opt
         }
       })
       .catch(error => {
@@ -142,6 +86,12 @@ export default {
   mounted () {
     this.getChartData('month')
     this.getHighChartData('month')
+    setInterval(
+      function () {
+        this.getHighChartData('week')
+      },
+      5000
+    )
   },
   destroyed () {
     clearInterval(this.setInterval)

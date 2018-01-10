@@ -13,6 +13,13 @@ export default Pie.extend({
           data: this.datas
         }
       ]
+    }, {
+      responsive: true,
+      maintainAspectRatio: false,
+      pieceLabel: {
+        mode: 'percentage',
+        precision: 1
+      }
     })
   }
 })

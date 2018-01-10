@@ -90,4 +90,8 @@ export default {
 
 <style lang="sass" scoped>
 @import '../../sass/auth'
+
+body
+  background-color: (#2780E3 !important)
+  //background-color: #2780E3
 </style>
